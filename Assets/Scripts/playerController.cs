@@ -6,10 +6,39 @@ public class playerController : MonoBehaviour
 {
  
     public Animator animator;
+    public Joystick joystick;
+    public float runSpeed = 0.02f;
+
+    float MoveH = 0f;
+    float MoveV = 0f;
  
     void Update()
     {
-        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"),Input.GetAxis("Vertical"),0.0f);
+
+        if (joystick.Horizontal >= .2f)
+        {
+                MoveH = runSpeed;
+        }
+        else if (joystick.Horizontal  <= -.2f)
+        {
+                MoveH = -runSpeed;
+        }
+        else MoveH=0f;
+
+        if (joystick.Vertical >= .2f)
+        {
+                MoveV = runSpeed;
+        }
+        else if (joystick.Vertical  <= -.2f)
+        {
+                MoveV = -runSpeed;
+        }
+        else MoveV=0f;
+
+
+
+        Vector3 movement = new Vector3(MoveH,MoveV,0.0f);
+        
 
         animator.SetFloat("Horizontal", movement.x);
         animator.SetFloat("Vertical", movement.y);
